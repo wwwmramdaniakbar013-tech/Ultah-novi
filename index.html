@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Ulang Tahun Novi Zakiah Rohmah</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #fbc2eb, #a18cd1, #8ec5fc);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+  }
+
+  .container {
+    background: rgba(0,0,0,0.3);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 400px;
+  }
+
+  h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.7);
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+  }
+
+  .typing {
+    font-size: 18px;
+    margin: 10px 0 20px 0;
+    height: 50px;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+    animation-delay: 2s;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: #ff6b81;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #ffe6ea;
+  }
+
+  .hidden {
+    display: none;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+
+  .balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 40px;
+    height: 60px;
+    background: red;
+    border-radius: 50% 50% 50% 50%;
+    animation: floatUp 10s linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes floatUp {
+    0% {transform: translateY(0) rotate(0deg);}
+    100% {transform: translateY(-120vh) rotate(360deg);}
+  }
+
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+    opacity: 0.7;
+    animation: confettiFall 5s linear infinite;
+  }
+
+  @keyframes confettiFall {
+    0% {transform: translateY(0) rotate(0deg);}
+    100% {transform: translateY(100vh) rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1 id="nama">🎉 Selamat Ulang Tahun, Novi Zakiah Rohmah! 🎉</h1>
+  <div class="typing" id="ucapan"></div>
+  <button onclick="tampilkanKejutan(); playMusik()">Klik untuk Kejutan 🎁</button>
+  <div id="pesanRahasia" class="hidden">
+    Semoga hari ini penuh kebahagiaan dan tahun ini menjadi tahun terbaikmu! 💖
+  </div>
+</div>
+
+<!-- Musik dari Google Drive -->
+<audio id="musik" loop>
+  <source src="https://drive.google.com/uc?export=download&id=1Z1nZv9KicZBwApGW-f_qIZgsGB6kEXgQ" type="audio/mpeg">
+</audio>
+
+<script>
+  // ----------------- Typing Effect -----------------
+  const ucapan = "Semoga panjang umur, sehat selalu, dan semua impian tercapai ✨";
+  let i = 0;
+  const typingEl = document.getElementById("ucapan");
+
+  function typeWriter() {
+    if (i < ucapan.length) {
+      typingEl.innerHTML += ucapan.charAt(i);
+      i++;
+      setTimeout(typeWriter, 100);
+    }
+  }
+
+  setTimeout(typeWriter, 2500);
+
+  // ----------------- Tombol Kejutan -----------------
+  function tampilkanKejutan() {
+    document.getElementById("pesanRahasia").classList.remove("hidden");
+    createConfetti();
+    createBalloons();
+  }
+
+  function playMusik() {
+    const musik = document.getElementById("musik");
+    musik.play().catch(() => {
+      alert("Klik tombol play musik di browser jika tidak otomatis diputar.");
+    });
+  }
+
+  // ----------------- Confetti -----------------
+  function createConfetti() {
+    for(let i=0;i<50;i++){
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+      confetti.style.animationDuration = (3 + Math.random()*3) + "s";
+      document.body.appendChild(confetti);
+      setTimeout(()=>{confetti.remove();}, 5000);
+    }
+  }
+
+  // ----------------- Balloons -----------------
+  function createBalloons() {
+    for(let i=0;i<10;i++){
+      const balloon = document.createElement("div");
+      balloon.classList.add("balloon");
+      balloon.style.left = Math.random() * window.innerWidth + "px";
+      balloon.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+      balloon.style.animationDuration = (5 + Math.random()*5) + "s";
+      document.body.appendChild(balloon);
+      setTimeout(()=>{balloon.remove();}, 10000);
+    }
+  }
+</script>
+
+</body>
+</html>
